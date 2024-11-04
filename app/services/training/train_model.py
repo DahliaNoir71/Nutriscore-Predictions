@@ -169,7 +169,6 @@ def prepare_and_train_model():
     If the 'saving' parameter is True, the trained model and scaler are saved to the 'models' directory.
     Finally, the function returns the trained model, scaler, and the features and target values for the test set.
     """
-    print(Config.CLEANED_CSV_FULL_PATH)
     df_prediction = get_df_from_csv(Config.CLEANED_CSV_FULL_PATH,
                                     Config.COLS_PREDICTIONS,
                                     Config.CHUNK_SIZE)
