@@ -45,7 +45,7 @@ def plot_predictions_heatmap(df_test, accuracy_report):
     # Tracer la heatmap
     sns.heatmap(confusion_matrix,
                 annot=True,
-                fmt='.2f',
+                fmt='d',
                 cmap='Blues',
                 cbar=True,
                 square=True,
