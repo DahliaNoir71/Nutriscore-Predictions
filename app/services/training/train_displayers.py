@@ -105,8 +105,8 @@ def plot_training_confusion_matrix(y_for_test, y_predict_test, model):
     plt.figure(figsize=(8, 6))
     sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues",
                 xticklabels=model.classes_, yticklabels=model.classes_)
-    plt.xlabel("Classe prédite", fontsize=14)
-    plt.ylabel("Classe réelle", fontsize=14)
+    plt.xlabel("Nutriscore prédit", fontsize=14)
+    plt.ylabel("Nutriscore réelle", fontsize=14)
     plt.title("Matrice de confusion du NutriScore", fontsize=16)
     plt.show()
 
