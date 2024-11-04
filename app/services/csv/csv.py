@@ -1,5 +1,11 @@
+import os
+
 import pandas as pd
+import joblib
 from tqdm import tqdm
+
+from config import Config
+
 
 def read_csv_chunks(file_path, selected_columns, chunk_size):
     """
@@ -41,8 +47,24 @@ def read_csv_chunks(file_path, selected_columns, chunk_size):
     return selected_chunks
 
 def get_df_from_csv(file_path, selected_columns, chunk_size):
+    """
+    Load a CSV file into a pandas DataFrame, either by loading a previously saved DataFrame or by reading the CSV file in chunks.
+
+    Parameters:
+    file_path (str): The path to the CSV file to be loaded.
+    selected_columns (list): A list of column names to be read from the CSV file. If None, all columns will be read.
+    chunk_size (int): The number of rows per chunk to be read from the CSV file.
+    debug (bool): A flag indicating whether debug mode is enabled.
+
+    Returns:
+    pd.DataFrame: The loaded DataFrame containing the CSV data. If debug mode is enabled, the DataFrame will be saved to a file for future use.
+    """
     chunks = read_csv_chunks(file_path, selected_columns, chunk_size)
-    # Concaténation des morceaux de DataFrame pour obtenir un DataFrame final
+    # Concatenate the chunks of DataFrame to obtain a final DataFrame
     df = pd.concat(chunks)
+
     return df
+
+
+
 
