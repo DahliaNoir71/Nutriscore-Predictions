@@ -1,5 +1,7 @@
 import joblib
 
+from app.services.predictions import predictions
+
 
 def load_data_for_test(model_path, scaler_path, test_data_path):
     """
@@ -32,7 +34,7 @@ def make_predictions(model, scaler, df_test):
     pandas.DataFrame: The input DataFrame with an additional 'nutriscore_prediction' column containing the predicted grades.
     """
     df_test_scaled = df_test.drop(columns=['nutriscore_grade'])
-    y_prediction_test, y_prediction_prob_test = make_test_predictions(model, scaler, df_test_scaled)
+    y_prediction_test, y_prediction_prob_test = predictions(model, scaler, df_test_scaled)
     df_test['nutriscore_prediction'] = y_prediction_test
 
     return df_test
