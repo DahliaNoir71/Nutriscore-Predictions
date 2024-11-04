@@ -1,6 +1,6 @@
 from app.services.training.train_displayers import display_model_evaluations
-from app.services.training.train_model import (prepare_and_train_model,
-                                               make_test_predictions)
+from app.services.training.train_model import prepare_and_train_model
+from app.services.predictions import predictions
 
 
 def main():
@@ -15,9 +15,9 @@ def main():
     None
     """
     model, scaler, x_test, y_test = prepare_and_train_model()
-    y_prediction_test, y_prediction_prob_test = make_test_predictions(model,
-                                                                      scaler,
-                                                                      x_test)
+    y_prediction_test, y_prediction_prob_test = predictions(model,
+                                                            scaler,
+                                                            x_test)
     display_model_evaluations(y_test,
                               y_prediction_test,
                               y_prediction_prob_test,
