@@ -15,8 +15,13 @@ def main():
     None
     """
     model, scaler, x_test, y_test = prepare_and_train_model()
-    y_prediction_test, y_prediction_prob_test = make_test_predictions(model, scaler, x_test)
-    display_model_evaluations(y_test, y_prediction_test, y_prediction_prob_test, model)
+    y_prediction_test, y_prediction_prob_test = make_test_predictions(model,
+                                                                      scaler,
+                                                                      x_test)
+    display_model_evaluations(y_test,
+                              y_prediction_test,
+                              y_prediction_prob_test,
+                              model)
 
 # Call the main function
 if __name__ == "__main__":
