@@ -1,9 +1,9 @@
-from app.modules.test_displayers import (display_predictions,
-                                         plot_predictions_heatmap)
-from app.modules.test_model import (load_data_for_test,
-                                    make_predictions,
-                                    calculate_accuracy,
-                                    get_accuracy_report)
+from app.services.testing.test_displayers import (display_predictions,
+                                                  plot_predictions_heatmap)
+from app.services.testing.test_model import (load_data_for_test,
+                                             make_predictions,
+                                             calculate_accuracy,
+                                             get_accuracy_report)
 
 
 def main():
