@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import StandardScaler
-from app.modules.clean_csv import read_csv_chunks
+from app.services.csv.csv import get_df_from_csv
 from config import Config
 
 
@@ -35,7 +35,7 @@ def save_df_test(df_test):
     # Créer le répertoire s'il n'existe pas
     os.makedirs('tests', exist_ok=True)
     # Ensuite, sauvegarder le modèle et le scaler dans ce répertoire
-    joblib.dump(df_test, DUMP_TEST_PATH)
+    joblib.dump(df_test, Config.DUMP_TEST_PATH)
     print("df_test sauvegardé avec succès.")
 
 
@@ -162,8 +162,8 @@ def save_model(model, scaler):
     # Créer le répertoire s'il n'existe pas
     os.makedirs('models', exist_ok=True)
     # Ensuite, sauvegarder le modèle et le scaler dans ce répertoire
-    joblib.dump(model, DUMP_MODEL_PATH)
-    joblib.dump(scaler, DUMP_SCALER_PATH)
+    joblib.dump(model, Config.DUMP_MODEL_PATH)
+    joblib.dump(scaler, Config.DUMP_SCALER_PATH)
     print("Modèle et scaler sauvegardés avec succès.")
 
 def prepare_and_train_model():
@@ -189,12 +189,16 @@ def prepare_and_train_model():
     If the 'saving' parameter is True, the trained model and scaler are saved to the 'models' directory.
     Finally, the function returns the trained model, scaler, and the features and target values for the test set.
     """
-    df_prediction = load_data(Config.CLEANED_CSV_FULL_PATH,
-                              Config.COLS_100G,
-                              Config.CHUNK_SIZE)
+    print(Config.CLEANED_CSV_FULL_PATH)
+    df_prediction = get_df_from_csv(Config.CLEANED_CSV_FULL_PATH,
+                                    Config.COLS_PREDICTIONS,
+                                    Config.CHUNK_SIZE)
     df_prediction = split_data_for_test(df_prediction,test_size=0.1)
     x, y = preprocess_data(df_prediction, Config.COL_PREDICTION)
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x,
+                                                        y,
+                                                        test_size=0.2,
+                                                        random_state=42)
     model, scaler = train_model(x_train, y_train)
     save_model(model, scaler)
 
