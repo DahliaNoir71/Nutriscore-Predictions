@@ -1,6 +1,6 @@
 import joblib
 
-from app.services.predictions import predictions
+from services.predictions import predictions
 
 
 def load_data_for_test(model_path, scaler_path, test_data_path):

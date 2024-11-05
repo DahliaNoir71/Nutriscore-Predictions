@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NutriScore Predictions</title>
+</head>
+<body>
+    <h1>Bienvenue sur l'application de prédiction NutriScore</h1>
+    <form action="{{ url_for('clean_csv') }}" method="post">
+        <button type="submit">Nettoyer le CSV</button>
+    </form>
+</body>
+</html>

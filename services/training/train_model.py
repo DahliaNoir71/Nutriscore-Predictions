@@ -5,8 +5,8 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import StandardScaler
-from app.services.csv.csv import get_df_from_csv
-from app.config import Config
+from services.csv.csv import get_df_from_csv
+from config import Config
 
 
 

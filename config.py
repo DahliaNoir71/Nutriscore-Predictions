@@ -2,7 +2,7 @@ import os
 
 class Config:
     MAX_ITERATIONS = 1000
-    STATIC_DIRECTORY_PATH = "../app/static/"
+    STATIC_DIRECTORY_PATH = "static/"
     CSV_DIRECTORY_PATH = STATIC_DIRECTORY_PATH + "csv/"
     ORIGINAL_CSV_NAME = "en.openfoodfacts.org.products.csv"
     CLEANED_CSV_NAME = "openfoodfact_clean.csv"

@@ -1,4 +1,4 @@
-from app.config import Config
+from config import Config
 
 def clean_nutriscore(df, selected_column):
     """

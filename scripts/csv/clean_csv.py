@@ -1,6 +1,6 @@
-from app.services.cleaning.cleaners import clean_nutriscore, clean_by_country
-from app.services.csv.csv import get_df_from_csv
-from app.config import Config
+from services.cleaning.cleaners import clean_nutriscore, clean_by_country
+from services.csv.csv import get_df_from_csv
+from config import Config
 
 def main():
     """

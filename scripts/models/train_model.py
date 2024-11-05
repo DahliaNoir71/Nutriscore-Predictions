@@ -1,6 +1,6 @@
-from app.services.training.train_displayers import display_model_evaluations
-from app.services.training.train_model import prepare_and_train_model
-from app.services.predictions import predictions
+from services.training.train_displayers import display_model_evaluations
+from services.training.train_model import prepare_and_train_model
+from services.predictions import predictions
 
 
 def main():
