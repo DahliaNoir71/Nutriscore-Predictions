@@ -4,7 +4,7 @@ from app.services.testing.test_model import (load_data_for_test,
                                              make_predictions,
                                              calculate_accuracy,
                                              get_accuracy_report)
-from config import Config
+from app.config import Config
 
 
 def main():
