@@ -1,4 +1,4 @@
-from config import Config
+from app.config import Config
 
 def clean_nutriscore(df, selected_column):
     """
@@ -12,10 +12,13 @@ def clean_nutriscore(df, selected_column):
     Returns:
     pandas.DataFrame: The cleaned DataFrame.
     """
+    print("Début clean nutriscore")
     df = df.dropna(subset=[selected_column])
+    # Normalisation de la colonne avant comparaison
+    df[selected_column] = df[selected_column].str.strip().str.lower()
     # Filter the DataFrame to keep only rows where the 'nutriscore_grade' column contains one of the specified values
     df = df[df[selected_column].isin(Config.NUTRI_OK)]
-
+    print("Fin clean nutriscore")
     return df
 
 
@@ -32,6 +35,7 @@ def clean_by_country(df, column_name, country_name):
     Returns:
     pandas.DataFrame: The cleaned DataFrame, containing only rows where the specified column contains the specified country.
     """
+    print("Début clean by country")
     # Divide and explode to obtain each country as a separate row
     df[column_name] = df[column_name].str.split(',')
     df = df.explode(column_name)
@@ -39,5 +43,5 @@ def clean_by_country(df, column_name, country_name):
     df[column_name] = df[column_name].str.strip().str.lower()
     # Filter the dataframe to keep only rows where the column contains the word country_name
     df = df[df[column_name].str.contains(country_name.lower(), na=False)]
-
+    print("Fin clean by country")
     return df
