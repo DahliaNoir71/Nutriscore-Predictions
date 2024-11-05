@@ -2,7 +2,7 @@ import os
 
 class Config:
     MAX_ITERATIONS = 1000
-    STATIC_DIRECTORY_PATH = "static/"
+    STATIC_DIRECTORY_PATH = "../static/"
     CSV_DIRECTORY_PATH = STATIC_DIRECTORY_PATH + "csv/"
     ORIGINAL_CSV_NAME = "en.openfoodfacts.org.products.csv"
     CLEANED_CSV_NAME = "openfoodfact_clean.csv"
@@ -23,10 +23,9 @@ class Config:
     ]
     COLS_PREDICTIONS = COLS_100G + [COL_PREDICTION]
     COLS_TO_CLEAN = COLS_PREDICTIONS + [COL_COUNTRIES_EN]
-    DUMP_PATH = STATIC_DIRECTORY_PATH + "dump/"
-    DUMP_SCALER_PATH = DUMP_PATH + 'models/scaler_nutriscore.pkl'
-    DUMP_MODEL_PATH = DUMP_PATH + 'models/model_nutriscore.pkl'
-    DUMP_TEST_PATH = DUMP_PATH + 'tests/df_test_nutriscore.pkl'
+    DUMP_SCALER_NAME = 'scaler_nutriscore.pkl'
+    DUMP_MODEL_NAME = 'model_nutriscore.pkl'
+    DUMP_TEST_NAME = 'df_test_nutriscore.pkl'
     NUTRI_OK = ["a", "b", "c", "d", "e"]
     COUNTRY_TO_CLEAN = "France"
 

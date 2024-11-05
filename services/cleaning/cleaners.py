@@ -15,7 +15,8 @@ def clean_nutriscore(df, selected_column):
     print("Début clean nutriscore")
     df = df.dropna(subset=[selected_column])
     # Normalisation de la colonne avant comparaison
-    df[selected_column] = df[selected_column].str.strip().str.lower()
+    df[selected_column] = df[selected_column].str.lower()
+    df[selected_column] = df[selected_column].str.strip()
     # Filter the DataFrame to keep only rows where the 'nutriscore_grade' column contains one of the specified values
     df = df[df[selected_column].isin(Config.NUTRI_OK)]
     print("Fin clean nutriscore")
@@ -40,7 +41,8 @@ def clean_by_country(df, column_name, country_name):
     df[column_name] = df[column_name].str.split(',')
     df = df.explode(column_name)
     # Clean extra spaces and normalize to lowercase
-    df[column_name] = df[column_name].str.strip().str.lower()
+    df[column_name] = df[column_name].str.strip()
+    df[column_name] = df[column_name].str.lower()
     # Filter the dataframe to keep only rows where the column contains the word country_name
     df = df[df[column_name].str.contains(country_name.lower(), na=False)]
     print("Fin clean by country")
