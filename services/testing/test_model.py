@@ -1,9 +1,11 @@
+import os
+
 import joblib
 
 from services.predictions import predictions
 
 
-def load_data_for_test(model_path, scaler_path, test_data_path):
+def load_data_for_test(model_name, scaler_name, test_data_name):
     """
     Load trained model, scaler, and test data from specified paths.
 
@@ -15,9 +17,18 @@ def load_data_for_test(model_path, scaler_path, test_data_path):
     Returns:
     tuple: A tuple containing the loaded model, scaler, and test data.
     """
-    model = joblib.load(model_path)
-    scaler = joblib.load(scaler_path)
-    df_test = joblib.load(test_data_path)
+    print("Load data for tests")
+    dump_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'dump')
+    # Normalize the path to avoid errors (e.g., with '..')
+    dump_path = os.path.normpath(dump_path)
+    dump_models_path = os.path.join(dump_path, 'models')
+    dump_model_path = os.path.join(dump_models_path, model_name)
+    dump_scaler_path = os.path.join(dump_models_path, scaler_name)
+    dump_tests_path = os.path.join(dump_path, 'tests')
+    dump_test_path = os.path.join(dump_tests_path, test_data_name)
+    model = joblib.load(dump_model_path)
+    scaler = joblib.load(dump_scaler_path)
+    df_test = joblib.load(dump_test_path)
     return model, scaler, df_test
 
 def make_predictions(model, scaler, df_test):
@@ -33,6 +44,8 @@ def make_predictions(model, scaler, df_test):
     Returns:
     pandas.DataFrame: The input DataFrame with an additional 'nutriscore_prediction' column containing the predicted grades.
     """
+    print("Make predictions and display results")
+    df_test = df_test.copy()  # Make a copy to avoid modifying the original DataFrame
     df_test_scaled = df_test.drop(columns=['nutriscore_grade'])
     y_prediction_test, y_prediction_prob_test = predictions(model, scaler, df_test_scaled)
     df_test['nutriscore_prediction'] = y_prediction_test
@@ -57,11 +70,14 @@ def calculate_accuracy(df_test):
         - total_predictions (int): The total number of predictions.
         - accuracy_percentage (float): The accuracy percentage of the predictions.
     """
+    print("Calculate accuracy")
+    # Calculate the number of correct predictions and total predictions, and accuracy percentage.
     correct_predictions = (df_test['nutriscore_prediction'] == df_test['nutriscore_grade']).sum()
     total_predictions = len(df_test)
     accuracy_percentage = (correct_predictions / total_predictions) * 100
 
     return correct_predictions, total_predictions, accuracy_percentage
+
 
 def get_accuracy_report(correct_predictions, total_predictions, accuracy_percentage):
     """
@@ -75,7 +91,11 @@ def get_accuracy_report(correct_predictions, total_predictions, accuracy_percent
     Returns:
     str: A string containing the report lines.
     """
-    report = f"Nombre de bonnes prédictions : {correct_predictions}\n"
+    print("Display accuracy report")
+    # Display a report containing the number of correct predictions, total predictions, and accuracy percentage.
+    report = f"Rapport d'accuracy\n"
+    report += f"Nombre de bonnes prédictions : {correct_predictions}\n"
     report += f"Nombre total de prédictions : {total_predictions}\n"
     report += f"Pourcentage de bonnes prédictions : {accuracy_percentage:.2f}%"
+
     return report
