@@ -1,10 +1,5 @@
-import os
-
 import pandas as pd
-import joblib
 from tqdm import tqdm
-
-from config import Config
 
 
 def read_csv_chunks(file_path, selected_columns, chunk_size):
@@ -64,7 +59,3 @@ def get_df_from_csv(file_path, selected_columns, chunk_size):
     df = pd.concat(chunks)
 
     return df
-
-
-
-
