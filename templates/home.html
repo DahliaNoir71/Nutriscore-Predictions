@@ -1,12 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>NutriScore Predictions</title>
+    <meta charset="UTF-8">
+    <title>Page d'accueil</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Bienvenue sur l'application de prédiction NutriScore</h1>
-    <form action="{{ url_for('clean_csv') }}" method="post">
-        <button type="submit">Nettoyer le CSV</button>
-    </form>
+    <h1>Page d'accueil</h1>
+
+    <!-- Bouton pour exécuter le script -->
+    <button onclick="runScript()">Lancer le script clean_csv</button>
+
+    <!-- Message de chargement -->
+    <div id="loadingMessage" style="display: none;">Le script est en cours d'exécution...</div>
+
+    <!-- Section pour afficher les sorties -->
+    <div id="outputSection" style="display: none;">
+        <h2>Sortie standard :</h2>
+        <pre id="output"></pre>
+        <h2>Erreurs :</h2>
+        <pre id="error"></pre>
+    </div>
+
+    <script>
+        function runScript() {
+            // Afficher le message de chargement
+            document.getElementById("loadingMessage").style.display = "block";
+            document.getElementById("outputSection").style.display = "none";
+
+            // Envoyer une requête AJAX pour exécuter le script
+            $.ajax({
+                url: "/run_clean_csv",
+                type: "POST",
+                success: function(response) {
+                    // Masquer le message de chargement
+                    document.getElementById("loadingMessage").style.display = "none";
+
+                    // Afficher la section de sortie avec les résultats
+                    document.getElementById("outputSection").style.display = "block";
+                    document.getElementById("output").textContent = response.output || "Aucune sortie.";
+                    document.getElementById("error").textContent = response.error || "Aucune erreur.";
+                },
+                error: function() {
+                    // En cas d'erreur, masquer le message de chargement et afficher un message d'erreur
+                    document.getElementById("loadingMessage").style.display = "none";
+                    alert("Une erreur est survenue lors de l'exécution du script.");
+                }
+            });
+        }
+    </script>
 </body>
 </html>

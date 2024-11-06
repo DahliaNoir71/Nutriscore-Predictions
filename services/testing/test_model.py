@@ -5,31 +5,8 @@ import joblib
 from services.predictions import predictions
 
 
-def load_data_for_test(model_name, scaler_name, test_data_name):
-    """
-    Load trained model, scaler, and test data from specified paths.
 
-    Parameters:
-    model_path (str): The path to the trained model file.
-    scaler_path (str): The path to the scaler file.
-    test_data_path (str): The path to the test data file.
 
-    Returns:
-    tuple: A tuple containing the loaded model, scaler, and test data.
-    """
-    print("Load data for tests")
-    dump_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'dump')
-    # Normalize the path to avoid errors (e.g., with '..')
-    dump_path = os.path.normpath(dump_path)
-    dump_models_path = os.path.join(dump_path, 'models')
-    dump_model_path = os.path.join(dump_models_path, model_name)
-    dump_scaler_path = os.path.join(dump_models_path, scaler_name)
-    dump_tests_path = os.path.join(dump_path, 'tests')
-    dump_test_path = os.path.join(dump_tests_path, test_data_name)
-    model = joblib.load(dump_model_path)
-    scaler = joblib.load(dump_scaler_path)
-    df_test = joblib.load(dump_test_path)
-    return model, scaler, df_test
 
 def make_predictions(model, scaler, df_test):
     """
@@ -51,6 +28,7 @@ def make_predictions(model, scaler, df_test):
     df_test['nutriscore_prediction'] = y_prediction_test
 
     return df_test
+
 
 def calculate_accuracy(df_test):
     """
