@@ -1,5 +1,5 @@
 import os
-import joblib
+import pickle
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
@@ -12,7 +12,7 @@ from config import Config
 
 def save_df_test(df_test):
     """
-    Saves a DataFrame to a specified path using joblib.
+    Saves a DataFrame to a specified path using pickle.
 
     Parameters:
     df_test (pd.DataFrame): The DataFrame to be saved. This DataFrame should contain the test data.
@@ -29,7 +29,8 @@ def save_df_test(df_test):
     dump_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'dump', 'tests', Config.DUMP_TEST_NAME)
     # Normalize the path to avoid errors (e.g., with '..')
     dump_path = os.path.normpath(dump_path)
-    joblib.dump(df_test, dump_path)
+    with open(dump_path, 'wb') as file:
+        pickle.dump(df_test, file)
     print("df_test sauvegardé avec succès.")
 
 
@@ -79,9 +80,7 @@ def preprocess_data(df, prediction_column):
     x = df.drop(prediction_column, axis=1)  # Features are all columns except the prediction column
     y = df[prediction_column]  # Target is the prediction column
     return x, y
-    x = df.drop(prediction_column, axis=1)  # Features are all columns except the prediction column
-    y = df[prediction_column]  # Target is the prediction column
-    return x, y
+
 
 
 def cross_validate_model(model, x, y, k=5, scoring='accuracy'):
@@ -173,8 +172,10 @@ def save_model_and_scaler(model, scaler):
     model_dump_path = os.path.join(dump_path, Config.DUMP_MODEL_NAME)
     scaler_dump_path = os.path.join(dump_path, Config.DUMP_SCALER_NAME)
     # Ensuite, sauvegarder le modèle et le scaler dans ce répertoire
-    joblib.dump(model, model_dump_path)
-    joblib.dump(scaler, scaler_dump_path)
+    with open(model_dump_path, 'wb') as file:
+        pickle.dump(model, file)
+    with open(scaler_dump_path, 'wb') as file:
+        pickle.dump(scaler, file)
     print("Modèle et scaler sauvegardés avec succès.")
 
 def prepare_and_train_model():
@@ -206,6 +207,8 @@ def prepare_and_train_model():
                                     Config.CHUNK_SIZE)
     df_prediction = split_data_for_test(df_prediction,test_size=0.2)
     x, y = preprocess_data(df_prediction, Config.COL_PREDICTION)
+    # feature_names = x.columns.tolist()  # Get the list of feature names from the DataFrame
+    # print(feature_names)
     x_train, x_test, y_train, y_test = train_test_split(x,
                                                         y,
                                                         test_size=0.2,

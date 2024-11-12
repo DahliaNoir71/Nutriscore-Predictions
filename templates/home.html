@@ -1,53 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Page d'accueil</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>NutriScore Predictions</title>
 </head>
 <body>
-    <h1>Page d'accueil</h1>
+    <h1>NutriScore Predictions</h1>
+    <form method="POST">
+        <label for="energy-kcal_100g">Energy (kcal):</label>
+        <input type="number" id="energy-kcal_100g" name="energy-kcal_100g" required><br>
 
-    <!-- Bouton pour exécuter le script -->
-    <button onclick="runScript()">Lancer le script clean_csv</button>
+        <label for="fat_100g">Fat (g):</label>
+        <input type="number" id="fat_100g" name="fat_100g" required><br>
 
-    <!-- Message de chargement -->
-    <div id="loadingMessage" style="display: none;">Le script est en cours d'exécution...</div>
+        <label for="saturated-fat_100g">Saturated Fat (g):</label>
+        <input type="number" id="saturated-fat_100g" name="saturated-fat_100g" required><br>
 
-    <!-- Section pour afficher les sorties -->
-    <div id="outputSection" style="display: none;">
-        <h2>Sortie standard :</h2>
-        <pre id="output"></pre>
-        <h2>Erreurs :</h2>
-        <pre id="error"></pre>
-    </div>
+        <label for="carbohydrates_100g">Carbohydrate (g):</label>
+        <input type="number" id="carbohydrates_100g" name="carbohydrates_100g" required><br>
 
-    <script>
-        function runScript() {
-            // Afficher le message de chargement
-            document.getElementById("loadingMessage").style.display = "block";
-            document.getElementById("outputSection").style.display = "none";
+        <label for="sugars_100g">Sugar (g):</label>
+        <input type="number" id="sugars_100g" name="sugars_100g" required><br>
 
-            // Envoyer une requête AJAX pour exécuter le script
-            $.ajax({
-                url: "/run_clean_csv",
-                type: "POST",
-                success: function(response) {
-                    // Masquer le message de chargement
-                    document.getElementById("loadingMessage").style.display = "none";
+        <label for="fiber_100g">Fiber (g):</label>
+        <input type="number" id="fiber_100g" name="fiber_100g" required><br>
 
-                    // Afficher la section de sortie avec les résultats
-                    document.getElementById("outputSection").style.display = "block";
-                    document.getElementById("output").textContent = response.output || "Aucune sortie.";
-                    document.getElementById("error").textContent = response.error || "Aucune erreur.";
-                },
-                error: function() {
-                    // En cas d'erreur, masquer le message de chargement et afficher un message d'erreur
-                    document.getElementById("loadingMessage").style.display = "none";
-                    alert("Une erreur est survenue lors de l'exécution du script.");
-                }
-            });
-        }
-    </script>
+        <label for="proteins_100g">Protein (g):</label>
+        <input type="number" id="proteins_100g" name="proteins_100g" required><br>
+
+        <label for="salt_100g">Salt (g):</label>
+        <input type="number" id="salt_100g" name="salt_100g" required><br>
+
+        <input type="submit" value="Predict">
+    </form>
 </body>
 </html>

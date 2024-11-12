@@ -1,5 +1,5 @@
 import os
-import joblib
+import pickle
 
 def load_model(model_name):
     """
@@ -13,7 +13,8 @@ def load_model(model_name):
     """
     dump_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'dump', 'models')
     dump_model_path = os.path.join(dump_path, model_name)
-    model = joblib.load(dump_model_path)
+    with open(dump_model_path, 'rb') as file:
+        model = pickle.load(file)
     return model
 
 
@@ -29,7 +30,8 @@ def load_scaler(scaler_name):
     """
     dump_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'dump', 'models')
     dump_scaler_path = os.path.join(dump_path, scaler_name)
-    scaler = joblib.load(dump_scaler_path)
+    with open(dump_scaler_path, 'rb') as file:
+        scaler = pickle.load(file)
     return scaler
 
 
@@ -45,5 +47,6 @@ def load_test_data(test_data_name):
     """
     dump_path = os.path.join(os.path.dirname(__file__), '..', '..', 'static', 'dump', 'tests')
     dump_test_path = os.path.join(dump_path, test_data_name)
-    df_test = joblib.load(dump_test_path)
+    with open(dump_test_path, 'rb') as file:
+        df_test = pickle.load(file)
     return df_test
