@@ -28,6 +28,8 @@ class Config:
     DUMP_TEST_NAME = 'df_test_nutriscore.pkl'
     NUTRI_OK = ["a", "b", "c", "d", "e"]
     COUNTRY_TO_CLEAN = "France"
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://flaskuser:flaskpassword@mysql-db/flaskdb'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 
