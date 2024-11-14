@@ -19,7 +19,7 @@ class Config:
         "fiber_100g",
         "proteins_100g",
         "salt_100g",
-        "carbohydrates_100g",
+        "fruits-vegetables-nuts-estimate-from-ingredients_100g"
     ]
     COLS_PREDICTIONS = COLS_100G + [COL_PREDICTION]
     COLS_TO_CLEAN = COLS_PREDICTIONS + [COL_COUNTRIES_EN]
